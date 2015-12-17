@@ -2,6 +2,7 @@ html, body {
   height: 500px;
   overflow-y: scroll;
 }
+
 body {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
@@ -10,6 +11,7 @@ body {
   overflow-x: hidden;
   padding: 20px;
 }
+
 h1 {
   border-bottom: 1px solid #DA552F;
   color: #DA552F;
@@ -18,11 +20,13 @@ h1 {
   margin: 0;
   padding-bottom: 10px;
 }
+
 h1 a {
   color: #3FACC1;
   font-size: 14px;
   margin-left: 20px;
 }
+
 h2 {
   color: #534540;
   font-size: 20px;
@@ -46,14 +50,14 @@ p {
 }
 div.post {
   margin: 20px 0 0;
-  padding: 0 0 0 45px;
+  padding: 0 0 0 80px;
   position: relative;
 }
 span.avatar img {
   border-radius: 15px;
-  height: 30px;
+  height: 60px;
   position: absolute;
   left: 0;
   top: 0;
-  width: 30px;
+  width: 70px;
 }
