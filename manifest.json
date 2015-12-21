@@ -21,7 +21,6 @@
   ],
   "content_scripts": [{
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["js/jquery.min.js", "js/core.js"],
-      "run_at": "document_start"
+      "js": ["js/jquery.min.js", "js/core.js"]
   }]
 }
