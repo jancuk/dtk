@@ -1,35 +1,49 @@
 var posts,
-    newsfeed,
-    newsfeed_storage;
+newsfeed,
+newsfeed_storage;
 
 document.addEventListener('DOMContentLoaded', function() {
   NProgress.start();
+  check_storage();
+  $('#hide-options').hide();
+  $('#options').hide();
   initStart();
+  $("#home").click(function () {
+    NProgress.start();
+    $('.post').remove();
+    initStart();
+  });
+  $("#tech").click(function () {
+    first_topic("http://api-newstweet.gedrix.net/v1/news/category/tech");
+  });
+  $("#sport").click(function () {
+    first_topic("http://api-newstweet.gedrix.net/v1/news/category/sport");
+  });
 });
 
 var initStart = function(){
   posts = document.querySelector(".posts");
   newsfeed_storage = statusHtmlStorage('newsfeed');
   if (newsfeed_storage == 0) {
-    $.getJSON("http://detikcom.herokuapp.com/newsfeeds", function(posts) {
-      if (posts.success) {
-        newsfeed = posts.data.nonheadline;
+    $.getJSON("http://api-newstweet.gedrix.net/v1/news/detiksport", function(posts) {
+      if (posts.count > 1) {
+        newsfeed = posts.data;
+        console.log(newsfeed);
         setHtmlStorage('newsfeed', JSON.stringify(newsfeed), 300);
         for (var i = 0;i < newsfeed.length;i++){
           addNewsFeed(newsfeed[i]);
-          if (i == 15){
-            setTimeout(function(){ NProgress.done()}, 2000)
+          if (i == newsfeed.length - 1){
+            setTimeout(function(){ NProgress.done()}, 100)
           }
         }
       }
     });
-
   } else {
     newsfeed = JSON.parse(localStorage.getItem('newsfeed'));
     for (var i = 0;i < newsfeed.length;i++){
       addNewsFeed(newsfeed[i]);
-      if (i == 15){
-        setTimeout(function(){ NProgress.done()}, 2000)
+      if (i == newsfeed.length - 1){
+        setTimeout(function(){ NProgress.done()}, 100)
       }
     }
   }
@@ -39,8 +53,8 @@ var addNewsFeed = function(post) {
   var postDom = document.createElement("div");
   postDom.classList.add("post");
 
-  postDom.innerHTML += "<h2><a href='"+post.article_url+"' target='_blank'>"+post.title+"</h2>";
-  postDom.innerHTML += "<p>" + post.resume + "</p>";
+  postDom.innerHTML += "<h2><a href='"+post.url+"' target='_blank'>"+post.title+"</h2>";
+  postDom.innerHTML += "<p>" + post.description + "</p>";
   postDom.innerHTML += "<span class='avatar'> <img src='"+post.image+"?w=150'></span>";
 
   posts.insertBefore(postDom, posts.firstChild);
@@ -71,7 +85,47 @@ function statusHtmlStorage(name) {
     removeStorage(name);
     return 0;
   } else {
-    return 1;
+    return 0;
   }
 
+}
+
+function check_storage(){
+  chrome.storage.sync.get({
+    favoriteKompas: true,
+    favoriteDetik: true,
+    favoriteLiputan6: true
+  }, function(items) {
+    console.log(items);
+  });
+}
+
+function first_topic(url){
+  NProgress.start();
+  $('.post').remove();
+  posts = document.querySelector(".posts");
+  newsfeed_storage = statusHtmlStorage('newsfeed');
+  if (newsfeed_storage == 0) {
+    $.getJSON(url, function(posts) {
+      if (posts.count > 1) {
+        newsfeed = posts.data;
+        setHtmlStorage('newsfeed-tech', JSON.stringify(newsfeed), 300);
+        for (var i = 0;i < newsfeed.length;i++){
+          addNewsFeed(newsfeed[i]);
+          if (i == newsfeed.length - 1){
+            setTimeout(function(){ NProgress.done()}, 100)
+          }
+        }
+      }
+    });
+
+  } else {
+    newsfeed = JSON.parse(localStorage.getItem('newsfeed'));
+    for (var i = 0;i < newsfeed.length;i++){
+      addNewsFeed(newsfeed[i]);
+      if (i == newsfeed.length - 1){
+        setTimeout(function(){ NProgress.done()}, 100)
+      }
+    }
+  }
 }

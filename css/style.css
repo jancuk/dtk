@@ -37,9 +37,7 @@ a {
   outline: 0;
   text-decoration: none;
 }
-a:hover {
-  text-decoration: underline;
-}
+
 a:active {
   outline: 0;
 }
@@ -60,4 +58,17 @@ span.avatar img {
   left: 0;
   top: 0;
   width: 70px;
+}
+
+.checkbox label:before {
+  border-radius: 3px;
+}
+
+input[type=checkbox]:checked + label:before {
+  content: "\2713";
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+  font-size: 15px;
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 15px;
 }

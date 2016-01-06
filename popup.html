@@ -1,17 +1,46 @@
 <!DOCTYPE Html>
 <html>
   <head>
-    <title>detikcom
+    <title>news-tweet ~analytics
     </title>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="css/nprogress.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
   </head>
   <body>
-    <h1>detik.com<a href="https://azharamir.com" target="_blank">Powered by jancuk</a></h1>
+    <div class="pure-menu pure-menu-horizontal">
+      <a href="#" id="home" class="pure-menu-heading"><h1>news-tweet</h1></a>
+      <ul class="pure-menu-list">
+          <li class="pure-menu-item"><a href="#" id="tech" class="pure-menu-link">Tech</a></li>
+          <li class="pure-menu-item"><a href="#" id="sport" class="pure-menu-link">Sports</a></li>
+          <li class="pure-menu-item"><a href="#" id="9gag" class="pure-menu-link">9GaG</a></li>
+      </ul>
+    </div>
+    <button id="show-options">Options</button>
+    <button id="hide-options">Hide Options</button>
+    <div id="options">
+      <label>
+        <input type="checkbox" id="detik">
+        Detik
+      </label>
+
+      <label>
+        <input type="checkbox" id="kompas">
+        Kompas
+      </label>
+
+      <label>
+        <input type="checkbox" id="liputan6">
+        Liputan6
+      </label>
+      <div id="status"></div>
+      <button id="save">Save</button>
+    </div>
     <div class="posts"></div>
   </body>
   <script src="js/jquery.min.js"></script>
   <script src="js/core.js"></script>
+  <script src="js/options.js"></script>
   <script src="js/nprogress.js"></script>
 </html>
